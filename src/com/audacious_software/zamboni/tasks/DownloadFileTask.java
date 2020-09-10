@@ -3,6 +3,7 @@ package com.audacious_software.zamboni.tasks;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.StrictMode;
+
+import androidx.core.content.FileProvider;
 
 import com.audacious_software.zamboni.Constants;
 
@@ -195,11 +198,23 @@ public class DownloadFileTask extends AsyncTask<Void, Integer, Long> {
         if (result > 0L) {
             mNotifier.downloadSuccessful(this);
             Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
-            intent.setDataAndType(Uri.fromFile(new File(this.mDirectory, this.mFilename)),
-                    "application/vnd.android.package-archive");
+
+            File apkFile = new File(this.mDirectory, this.mFilename);
+            Uri fileUri = Uri.fromFile(apkFile);
+
+            intent.setDataAndType(fileUri, "application/vnd.android.package-archive");
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
             StrictMode.VmPolicy oldVmPolicy = null;
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+                intent = new Intent(Intent.ACTION_VIEW);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                Uri apkURI = FileProvider.getUriForFile(this.mContext, this.mContext.getApplicationContext().getPackageName() + ".provider", apkFile);
+                intent.setDataAndType(apkURI, "application/vnd.android.package-archive");
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 oldVmPolicy = StrictMode.getVmPolicy();
@@ -211,7 +226,11 @@ public class DownloadFileTask extends AsyncTask<Void, Integer, Long> {
                 StrictMode.setVmPolicy(policy);
             }
 
-            mContext.startActivity(intent);
+            try {
+                mContext.startActivity(intent);
+            } catch (ActivityNotFoundException ex) {
+                ex.printStackTrace();
+            }
 
             if (oldVmPolicy != null) {
                 StrictMode.setVmPolicy(oldVmPolicy);

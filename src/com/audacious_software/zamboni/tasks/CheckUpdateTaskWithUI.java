@@ -136,7 +136,7 @@ public class CheckUpdateTaskWithUI extends CheckUpdateTask {
 
             try {
                 Method method = fragmentClass.getMethod("newInstance", String.class, String.class, boolean.class);
-                DialogFragment updateFragment = (DialogFragment) method.invoke(null, updateInfo.toString(), true);
+                DialogFragment updateFragment = (DialogFragment) method.invoke(null, updateInfo, true);
                 updateFragment.show(fragmentTransaction, UpdateFragment.FRAGMENT_TAG);
 
             } catch (Exception e) { // can't catch ReflectiveOperationException here because not targeting API level 19 or later

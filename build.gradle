@@ -13,7 +13,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.1'
+        classpath 'com.android.tools.build:gradle:4.0.1'
         classpath 'com.novoda:bintray-release:0.8.0'
     }
 }
@@ -60,7 +60,7 @@ android {
     }
 
     dependencies {
-        implementation 'androidx.appcompat:appcompat:1.1.0'
-        implementation "androidx.fragment:fragment:1.2.3"
+        implementation 'androidx.appcompat:appcompat:1.2.0'
+        implementation "androidx.fragment:fragment:1.2.5"
     }
 }
