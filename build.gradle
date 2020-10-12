@@ -13,10 +13,11 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.2'
+        classpath 'com.android.tools.build:gradle:4.1.0'
         classpath 'com.novoda:bintray-release:0.8.0'
     }
 }
+
 
 repositories {
     jcenter()
@@ -32,18 +33,18 @@ repositories {
 ext {
     ARTIFACT_ID = 'Zamboni'
     VERSION_NAME = '5.2.1'
-    VERSION_CODE = 21
-    COMPILE_SDK = 29
+    VERSION_CODE = 5002001
+    COMPILE_SDK = 30
 }
 
 android {
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 29
-        compileSdkVersion 29
-
-        versionCode 5002001
-        versionName "5.2.1"
+        targetSdkVersion 30
+        compileSdkVersion COMPILE_SDK
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
+        buildConfigField 'String', 'VERSION_NAME', '"' + VERSION_NAME + '"'
     }
 
     sourceSets {
