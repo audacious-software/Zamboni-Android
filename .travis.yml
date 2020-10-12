@@ -6,10 +6,9 @@ before_install:
   - unzip gradle-6.6.1-bin.zip
   - export GRADLE_HOME=$PWD/gradle-6.6.1
   - export PATH=$GRADLE_HOME/bin:$PATH
-  - mkdir "$ANDROID_HOME/licenses" || true
-  - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
-  - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
-  # - ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk -a --no-ui --filter tool,platform-tool,build-tools-30.0.2,android-30
+  - echo y | sdkmanager --update
+  - echo y | sdkmanager "platform-tools"
+  - echo y | sdkmanager "platforms;android-30"
 
 
 script:
