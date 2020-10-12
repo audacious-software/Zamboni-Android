@@ -12,8 +12,8 @@ before_install:
 
 
 script:
-  - gradle lint
   - gradle assembleDebug
+  - gradle lint
 
 android:
   components:
