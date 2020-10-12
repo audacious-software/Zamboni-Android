@@ -35,5 +35,8 @@ jobs:
     - name: Build Project
       run: gradle assembleDebug
 
+    - name: Lint Project
+      run: gradle lint
+
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
