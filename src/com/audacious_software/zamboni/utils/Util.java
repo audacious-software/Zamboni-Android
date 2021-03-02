@@ -387,7 +387,11 @@ public class Util {
             Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
             try {
                 if (cursor != null && cursor.moveToFirst()) {
-                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    int index = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+
+                    if (index >= 0) {
+                        result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    }
                 }
             } finally {
                 cursor.close();
