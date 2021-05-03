@@ -1,0 +1,36 @@
+name: "Build and Lint"
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  analyze:
+    name: Build and lint
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 2
+        submodules: true 
+
+    - run: git checkout HEAD^2
+      if: ${{ github.event_name == 'pull_request' }}
+
+    - name: Build project
+      run: gradle assembleDebug --warning-mode all
+
+    - name: Run unit tests
+      run: gradle testDebugUnitTest --warning-mode all
+
+    - name: Lint project
+      run: gradle lint --warning-mode all
