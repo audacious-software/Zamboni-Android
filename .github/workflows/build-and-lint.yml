@@ -26,7 +26,7 @@ jobs:
     - run: git checkout HEAD^2
       if: ${{ github.event_name == 'pull_request' }}
 
-- name: Build project
+    - name: Build project
       run: gradle assembleDebug --warning-mode all
 
     - name: Run unit tests
