@@ -390,7 +390,7 @@ public class Util {
                     int index = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
 
                     if (index >= 0) {
-                        result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                        result = cursor.getString(index);
                     }
                 }
             } finally {
