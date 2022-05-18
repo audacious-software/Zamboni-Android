@@ -3,31 +3,22 @@ apply plugin: 'com.android.library'
 buildscript {
     repositories {
         mavenCentral()
-        jcenter()
         maven {
             url "https://maven.google.com"
-        }
-        flatDir {
-            dirs 'libs'
         }
         google()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
-        classpath 'com.novoda:bintray-release:0.8.0'
+        classpath 'com.android.tools.build:gradle:7.2.0'
     }
 }
 
 
 repositories {
-    jcenter()
     google()
     maven {
         url "https://jitpack.io"
-    }
-    flatDir{
-        dirs 'libs'
     }
 }
 
@@ -35,7 +26,7 @@ ext {
     ARTIFACT_ID = 'Zamboni'
     VERSION_NAME = '5.2.1'
     VERSION_CODE = 5002001
-    COMPILE_SDK = 30
+    COMPILE_SDK = 32
 }
 
 android {
